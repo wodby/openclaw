@@ -83,6 +83,8 @@ RUN rm /bin/dash && ln -s /bin/bash /bin/dash
 RUN gotpl_url="https://github.com/wodby/gotpl/releases/latest/download/gotpl-${TARGETPLATFORM/\//-}.tar.gz"; \
     wget -qO- "${gotpl_url}" | tar xz --no-same-owner -C /usr/local/bin
 
+RUN mkdir -p /data && chown -R node:node /data
+
 ENV NODE_ENV=production
 
 # Security hardening: Run as non-root user

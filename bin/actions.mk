@@ -3,7 +3,7 @@
 host ?= localhost
 max_try ?= 1
 wait_seconds ?= 1
-delay_seconds ?= 5
+delay_seconds ?= 1
 
 default: check-ready
 
