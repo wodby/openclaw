@@ -39,11 +39,10 @@ Usage:
 make COMMAND [params ...]
  
 commands:
-    check-ready host max_try wait_seconds delay_seconds
-    flushall host
+    check-ready max_try wait_seconds delay_seconds
+    check-live max_try wait_seconds delay_seconds
     
 default params values:
-    host localhost
     max_try 1
     wait_seconds 1
     delay_seconds 0
