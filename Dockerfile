@@ -2,6 +2,8 @@ ARG NODE_VER
 
 FROM node:${NODE_VER}
 
+ARG TARGETPLATFORM
+
 ARG OPENCLAW_VER
 ENV OPENCLAW_VER="${OPENCLAW_VER}"
 
@@ -78,6 +80,9 @@ RUN ln -sf /app/openclaw.mjs /usr/local/bin/openclaw \
 
 RUN rm /bin/dash && ln -s /bin/bash /bin/dash
 
+RUN gotpl_url="https://github.com/wodby/gotpl/releases/latest/download/gotpl-${TARGETPLATFORM/\//-}.tar.gz"; \
+    wget -qO- "${gotpl_url}" | tar xz --no-same-owner -C /usr/local/bin
+
 ENV NODE_ENV=production
 
 # Security hardening: Run as non-root user
@@ -85,8 +90,11 @@ ENV NODE_ENV=production
 # This reduces the attack surface by preventing container escape via root privileges
 USER node
 
+RUN mkdir ~/.openclaw && chmod -R 700 ~/.openclaw
+
 COPY docker-entrypoint.sh /
 COPY bin /usr/local/bin
+COPY templates /etc/gotpl
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
@@ -98,4 +106,4 @@ SHELL ["/bin/bash", "-c"]
 # For container platforms requiring external health checks:
 #   1. Set OPENCLAW_GATEWAY_TOKEN or OPENCLAW_GATEWAY_PASSWORD env var
 #   2. Override CMD: ["node","openclaw.mjs","gateway","--allow-unconfigured","--bind","lan"]
-CMD ["node", "openclaw.mjs", "gateway", "--allow-unconfigured", "--bind", "lan"]
+CMD ["node", "openclaw.mjs", "gateway"]
