@@ -26,9 +26,9 @@ All images built for `linux/amd64` and `linux/arm64`
 
 ## Environment Variables
 
-| Variable                                    | Default Value | Description |
-|---------------------------------------------|---------------|-------------|
-| `OPENCLAW_GATEWAY_CONTROLUI_ALLOWED_ORIGIN` |               |             |
+| Variable                                         | Default Value | Description |
+|--------------------------------------------------|---------------|-------------|
+| `OPENCLAW_GATEWAY_CONTROLUI_ALLOWED_ORIGIN_JSON` |               |             |
 
 
 ## Orchestration Actions
