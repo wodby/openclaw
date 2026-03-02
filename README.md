@@ -29,6 +29,7 @@ All images built for `linux/amd64` and `linux/arm64`
 | Variable                                         | Default Value | Description |
 |--------------------------------------------------|---------------|-------------|
 | `OPENCLAW_GATEWAY_CONTROLUI_ALLOWED_ORIGIN_JSON` |               |             |
+| `OPENCLAW_STATE_DIR`                             | `/data`       |             |
 
 
 ## Orchestration Actions

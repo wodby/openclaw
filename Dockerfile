@@ -6,6 +6,8 @@ ARG TARGETPLATFORM
 
 ARG OPENCLAW_VER
 ENV OPENCLAW_VER="${OPENCLAW_VER}"
+ENV OPENCLAW_STATE_DIR="/data"
+
 
 ENV SHELL=/bin/bash
 
@@ -101,6 +103,8 @@ COPY templates /etc/gotpl
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
 SHELL ["/bin/bash", "-c"]
+
+VOLUME /data
 
 # Start gateway server with default config.
 # Binds to loopback (127.0.0.1) by default for security.
