@@ -15,7 +15,7 @@ delay_seconds=$4
 sleep "${delay_seconds}"
 
 for i in $(seq 1 "${max_try}"); do
-    if openclaw health --json | jq .ok | grep -q "true"; then
+    if health; then
         started=1
         break
     fi

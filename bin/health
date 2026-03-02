@@ -6,4 +6,4 @@ if [[ -n "${DEBUG}" ]]; then
     set -x
 fi
 
-openclaw health --json | jq .ok | grep -q "true"
+openclaw health --json 2>/dev/null | jq .ok | grep -q "true"
