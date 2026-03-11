@@ -1,9 +1,46 @@
-{ 
+{
     gateway: {
         mode: "local",
         bind: "lan",
         controlUi: {
             allowedOrigins: {{ if getenv "OPENCLAW_GATEWAY_CONTROLUI_ALLOWED_ORIGIN_JSON" }}{{ getenv "OPENCLAW_GATEWAY_CONTROLUI_ALLOWED_ORIGIN_JSON" }}{{ else }}["http://127.0.0.1:18789"]{{ end }}
         }
+    },
+    agents: {
+        defaults: {
+            workspace: {{ if getenv "OPENCLAW_AGENTS_WORKSPACE" }}{{ printf "%q" (getenv "OPENCLAW_AGENTS_WORKSPACE") }}{{ else }}"~/.openclaw/workspace"{{ end }}
+        }{{ if or (getenv "OPENAI_API_KEY") (getenv "ANTHROPIC_API_KEY") (getenv "GEMINI_API_KEY") (getenv "GOOGLE_API_KEY") }},
+        list: [
+            {{- if getenv "OPENAI_API_KEY" }}
+            {
+                id: "openai",
+                default: true,
+                workspace: {{ if getenv "OPENCLAW_OPENAI_WORKSPACE" }}{{ printf "%q" (getenv "OPENCLAW_OPENAI_WORKSPACE") }}{{ else }}"~/.openclaw/workspace-openai"{{ end }},
+                model: {
+                    primary: {{ if getenv "OPENCLAW_OPENAI_MODEL" }}{{ printf "%q" (getenv "OPENCLAW_OPENAI_MODEL") }}{{ else }}"openai/gpt-5.4"{{ end }}
+                }
+            }{{ if or (getenv "ANTHROPIC_API_KEY") (getenv "GEMINI_API_KEY") (getenv "GOOGLE_API_KEY") }},{{ end }}
+            {{- end }}
+            {{- if getenv "ANTHROPIC_API_KEY" }}
+            {
+                id: "claude",
+                default: {{ if not (getenv "OPENAI_API_KEY") }}true{{ else }}false{{ end }},
+                workspace: {{ if getenv "OPENCLAW_CLAUDE_WORKSPACE" }}{{ printf "%q" (getenv "OPENCLAW_CLAUDE_WORKSPACE") }}{{ else }}"~/.openclaw/workspace-claude"{{ end }},
+                model: {
+                    primary: {{ if getenv "OPENCLAW_CLAUDE_MODEL" }}{{ printf "%q" (getenv "OPENCLAW_CLAUDE_MODEL") }}{{ else }}"anthropic/claude-opus-4-6"{{ end }}
+                }
+            }{{ if or (getenv "GEMINI_API_KEY") (getenv "GOOGLE_API_KEY") }},{{ end }}
+            {{- end }}
+            {{- if or (getenv "GEMINI_API_KEY") (getenv "GOOGLE_API_KEY") }}
+            {
+                id: "gemini",
+                default: {{ if and (not (getenv "OPENAI_API_KEY")) (not (getenv "ANTHROPIC_API_KEY")) }}true{{ else }}false{{ end }},
+                workspace: {{ if getenv "OPENCLAW_GEMINI_WORKSPACE" }}{{ printf "%q" (getenv "OPENCLAW_GEMINI_WORKSPACE") }}{{ else }}"~/.openclaw/workspace-gemini"{{ end }},
+                model: {
+                    primary: {{ if getenv "OPENCLAW_GEMINI_MODEL" }}{{ printf "%q" (getenv "OPENCLAW_GEMINI_MODEL") }}{{ else }}"google/gemini-3-pro-preview"{{ end }}
+                }
+            }
+            {{- end }}
+        ]{{ end }}
     }
 }
