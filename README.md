@@ -30,7 +30,7 @@ All images built for `linux/amd64` and `linux/arm64`
 |--------------------------------------------------|--------------------------------|---------------------------------------------------------------------------------------|
 | `OPENCLAW_GATEWAY_CONTROLUI_ALLOWED_ORIGIN_JSON` |                                |                                                                                       |
 | `OPENCLAW_AGENTS_WORKSPACE`                      | `~/.openclaw/workspace`        | Default workspace for agents                                                          |
-| `OPENCLAW_OPENAI_MODEL`                          | `openai/gpt-5.4`               | Primary model for the `openai` agent when `OPENAI_API_KEY` is set                     |
+| `OPENCLAW_OPENAI_MODEL`                          | `openai/gpt-5.3`               | Primary model for the `openai` agent when `OPENAI_API_KEY` is set                     |
 | `OPENCLAW_OPENAI_WORKSPACE`                      | `~/.openclaw/workspace-openai` | Workspace override for the `openai` agent                                             |
 | `OPENCLAW_CLAUDE_MODEL`                          | `anthropic/claude-opus-4-6`    | Primary model for the `claude` agent when `ANTHROPIC_API_KEY` is set                  |
 | `OPENCLAW_CLAUDE_WORKSPACE`                      | `~/.openclaw/workspace-claude` | Workspace override for the `claude` agent                                             |

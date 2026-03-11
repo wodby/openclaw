@@ -65,6 +65,7 @@ shell:
 run:
 	docker run --rm --name $(NAME) \
 		-e DEBUG=1 \
+		-p 18789 \
 		-e OPENCLAW_GATEWAY_TOKEN=very-bad-token \
 		-e OPENCLAW_GATEWAY_CONTROLUI_ALLOWED_ORIGIN="test" \
 		$(PORTS) $(VOLUMES) $(ENV) $(REPO):$(TAG) $(CMD)

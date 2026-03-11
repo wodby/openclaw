@@ -17,7 +17,7 @@
                 default: true,
                 workspace: {{ if getenv "OPENCLAW_OPENAI_WORKSPACE" }}{{ printf "%q" (getenv "OPENCLAW_OPENAI_WORKSPACE") }}{{ else }}"~/.openclaw/workspace-openai"{{ end }},
                 model: {
-                    primary: {{ if getenv "OPENCLAW_OPENAI_MODEL" }}{{ printf "%q" (getenv "OPENCLAW_OPENAI_MODEL") }}{{ else }}"openai/gpt-5.4"{{ end }}
+                    primary: {{ if getenv "OPENCLAW_OPENAI_MODEL" }}{{ printf "%q" (getenv "OPENCLAW_OPENAI_MODEL") }}{{ else }}"openai/gpt-5.3"{{ end }}
                 }
             }{{ if or (getenv "ANTHROPIC_API_KEY") (getenv "GEMINI_API_KEY") (getenv "GOOGLE_API_KEY") }},{{ end }}
             {{- end }}
