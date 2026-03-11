@@ -17,7 +17,15 @@
                 default: true,
                 workspace: {{ if getenv "OPENCLAW_OPENAI_WORKSPACE" }}{{ printf "%q" (getenv "OPENCLAW_OPENAI_WORKSPACE") }}{{ else }}"~/.openclaw/workspace-openai"{{ end }},
                 model: {
-                    primary: {{ if getenv "OPENCLAW_OPENAI_MODEL" }}{{ printf "%q" (getenv "OPENCLAW_OPENAI_MODEL") }}{{ else }}"openai/gpt-5.3"{{ end }}
+                    primary: {{ if getenv "OPENCLAW_OPENAI_MODEL" }}{{ printf "%q" (getenv "OPENCLAW_OPENAI_MODEL") }}{{ else }}"openai/gpt-5.1-codex"{{ end }}
+                }
+            },
+            {
+                id: "openai-code",
+                default: false,
+                workspace: {{ if getenv "OPENCLAW_OPENAI_CODE_WORKSPACE" }}{{ printf "%q" (getenv "OPENCLAW_OPENAI_CODE_WORKSPACE") }}{{ else }}"~/.openclaw/workspace-openai-code"{{ end }},
+                model: {
+                    primary: {{ if getenv "OPENCLAW_OPENAI_CODE_MODEL" }}{{ printf "%q" (getenv "OPENCLAW_OPENAI_CODE_MODEL") }}{{ else }}"openai-codex/gpt-5.3-codex"{{ end }}
                 }
             }{{ if or (getenv "ANTHROPIC_API_KEY") (getenv "GEMINI_API_KEY") (getenv "GOOGLE_API_KEY") }},{{ end }}
             {{- end }}

@@ -26,26 +26,28 @@ All images built for `linux/amd64` and `linux/arm64`
 
 ## Environment Variables
 
-| Variable                                         | Default Value                  | Description                                                                           |
-|--------------------------------------------------|--------------------------------|---------------------------------------------------------------------------------------|
-| `OPENCLAW_GATEWAY_CONTROLUI_ALLOWED_ORIGIN_JSON` |                                |                                                                                       |
-| `OPENCLAW_AGENTS_WORKSPACE`                      | `~/.openclaw/workspace`        | Default workspace for agents                                                          |
-| `OPENCLAW_OPENAI_MODEL`                          | `openai/gpt-5.3`               | Primary model for the `openai` agent when `OPENAI_API_KEY` is set                     |
-| `OPENCLAW_OPENAI_WORKSPACE`                      | `~/.openclaw/workspace-openai` | Workspace override for the `openai` agent                                             |
-| `OPENCLAW_CLAUDE_MODEL`                          | `anthropic/claude-opus-4-6`    | Primary model for the `claude` agent when `ANTHROPIC_API_KEY` is set                  |
-| `OPENCLAW_CLAUDE_WORKSPACE`                      | `~/.openclaw/workspace-claude` | Workspace override for the `claude` agent                                             |
-| `OPENCLAW_GEMINI_MODEL`                          | `google/gemini-3-pro-preview`  | Primary model for the `gemini` agent when `GEMINI_API_KEY` or `GOOGLE_API_KEY` is set |
-| `OPENCLAW_GEMINI_WORKSPACE`                      | `~/.openclaw/workspace-gemini` | Workspace override for the `gemini` agent                                             |
-| `OPENCLAW_STATE_DIR`                             | `/data`                        |                                                                                       |
+| Variable                                         | Default Value                       | Description                                                                           |
+|--------------------------------------------------|-------------------------------------|---------------------------------------------------------------------------------------|
+| `OPENCLAW_GATEWAY_CONTROLUI_ALLOWED_ORIGIN_JSON` |                                     |                                                                                       |
+| `OPENCLAW_AGENTS_WORKSPACE`                      | `~/.openclaw/workspace`             | Default workspace for agents                                                          |
+| `OPENCLAW_OPENAI_MODEL`                          | `openai/gpt-5.1-codex`              | Primary model for the `openai` agent when `OPENAI_API_KEY` is set                     |
+| `OPENCLAW_OPENAI_WORKSPACE`                      | `~/.openclaw/workspace-openai`      | Workspace override for the `openai` agent                                             |
+| `OPENCLAW_OPENAI_CODE_MODEL`                     | `openai-codex/gpt-5.3-codex`        | Primary model for the `openai-code` agent when `OPENAI_API_KEY` is set                |
+| `OPENCLAW_OPENAI_CODE_WORKSPACE`                 | `~/.openclaw/workspace-openai-code` | Workspace override for the `openai-code` agent                                        |
+| `OPENCLAW_CLAUDE_MODEL`                          | `anthropic/claude-opus-4-6`         | Primary model for the `claude` agent when `ANTHROPIC_API_KEY` is set                  |
+| `OPENCLAW_CLAUDE_WORKSPACE`                      | `~/.openclaw/workspace-claude`      | Workspace override for the `claude` agent                                             |
+| `OPENCLAW_GEMINI_MODEL`                          | `google/gemini-3-pro-preview`       | Primary model for the `gemini` agent when `GEMINI_API_KEY` or `GOOGLE_API_KEY` is set |
+| `OPENCLAW_GEMINI_WORKSPACE`                      | `~/.openclaw/workspace-gemini`      | Workspace override for the `gemini` agent                                             |
+| `OPENCLAW_STATE_DIR`                             | `/data`                             |                                                                                       |
 
 OpenClaw will now add agents automatically when the corresponding provider credentials are present:
 
 - `OPENAI_API_KEY` adds the `openai` agent
+- `OPENAI_API_KEY` also adds the `openai-code` agent
 - `ANTHROPIC_API_KEY` adds the `claude` agent
 - `GEMINI_API_KEY` or `GOOGLE_API_KEY` adds the `gemini` agent
 
 The first available provider in that order becomes the default agent.
-
 
 ## Orchestration Actions
 
