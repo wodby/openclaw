@@ -2,7 +2,7 @@
 
 NODE_VER=22
 
-OPENCLAW_VER ?= 2026.3.8
+OPENCLAW_VER ?= 2026.3.11
 OPENCLAW_VER_MINOR = $(shell echo "${OPENCLAW_VER}" | grep -oE '^[0-9]+\.[0-9]+')
 
 TAG ?= $(OPENCLAW_VER_MINOR)
