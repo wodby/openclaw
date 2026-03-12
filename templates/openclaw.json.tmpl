@@ -50,5 +50,17 @@
             }
             {{- end }}
         ]{{ end }}
-    }
+    }{{ if or (getenv "TELEGRAM_BOT_TOKEN") (getenv "DISCORD_BOT_TOKEN") }},
+    channels: {
+        {{- if getenv "TELEGRAM_BOT_TOKEN" }}
+        telegram: {
+            enabled: true
+        }{{ if getenv "DISCORD_BOT_TOKEN" }},{{ end }}
+        {{- end }}
+        {{- if getenv "DISCORD_BOT_TOKEN" }}
+        discord: {
+            enabled: true
+        }
+        {{- end }}
+    }{{ end }}
 }

@@ -39,6 +39,11 @@ All images built for `linux/amd64` and `linux/arm64`
 | `OPENCLAW_GEMINI_MODEL`                          | `google/gemini-3-pro-preview`       | Primary model for the `gemini` agent when `GEMINI_API_KEY` or `GOOGLE_API_KEY` is set |
 | `OPENCLAW_GEMINI_WORKSPACE`                      | `~/.openclaw/workspace-gemini`      | Workspace override for the `gemini` agent                                             |
 | `OPENCLAW_STATE_DIR`                             | `/data`                             |                                                                                       |
+| `TELEGRAM_BOT_TOKEN`                             |                                     | Adds the `telegram` channel with `enabled: true`                                      |
+| `DISCORD_BOT_TOKEN`                              |                                     | Adds the `discord` channel with `enabled: true`                                       |
+| `OPENAI_API_KEY`                                 |                                     | Adds OpenAI and OpenAI Code agents                                                    |
+| `ANTHROPIC_API_KEY`                              |                                     | Adds Anthropic's Claude agent                                                         |
+| `GEMINI_API_KEY`                                 |                                     | Adds Google Gemini agent                                                              |
 
 OpenClaw will now add agents automatically when the corresponding provider credentials are present:
 
@@ -48,6 +53,11 @@ OpenClaw will now add agents automatically when the corresponding provider crede
 - `GEMINI_API_KEY` or `GOOGLE_API_KEY` adds the `gemini` agent
 
 The first available provider in that order becomes the default agent.
+
+OpenClaw will also add channels automatically when the corresponding tokens are present:
+
+- `TELEGRAM_BOT_TOKEN` adds the `telegram` channel
+- `DISCORD_BOT_TOKEN` adds the `discord` channel
 
 ## Orchestration Actions
 
