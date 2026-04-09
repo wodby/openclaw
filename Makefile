@@ -1,6 +1,8 @@
 -include env_make
 
 NODE_VER=22
+OPENCLAW_NODE_INSTALL_OLD_SPACE_SIZE ?= 2048
+OPENCLAW_NODE_BUILD_OLD_SPACE_SIZE ?= 4096
 
 OPENCLAW_VER ?= 2026.4.7
 OPENCLAW_VER_MINOR = $(shell echo "${OPENCLAW_VER}" | grep -oE '^[0-9]+\.[0-9]+')
@@ -25,18 +27,24 @@ default: build
 build:
 	docker build -t $(REPO):$(TAG) \
 		--build-arg OPENCLAW_VER=$(OPENCLAW_VER) \
+		--build-arg OPENCLAW_NODE_INSTALL_OLD_SPACE_SIZE=$(OPENCLAW_NODE_INSTALL_OLD_SPACE_SIZE) \
+		--build-arg OPENCLAW_NODE_BUILD_OLD_SPACE_SIZE=$(OPENCLAW_NODE_BUILD_OLD_SPACE_SIZE) \
 		--build-arg NODE_VER=$(NODE_VER) \
 		./
 
 build-debug:
 	docker build -t $(REPO):$(TAG) \
 		--build-arg OPENCLAW_VER=$(OPENCLAW_VER) \
+		--build-arg OPENCLAW_NODE_INSTALL_OLD_SPACE_SIZE=$(OPENCLAW_NODE_INSTALL_OLD_SPACE_SIZE) \
+		--build-arg OPENCLAW_NODE_BUILD_OLD_SPACE_SIZE=$(OPENCLAW_NODE_BUILD_OLD_SPACE_SIZE) \
 		--build-arg NODE_VER=$(NODE_VER) \
 		--no-cache --progress=plain ./ 2>&1 | tee build.log
 
 buildx-build:
 	docker buildx build --platform $(PLATFORM) -t $(REPO):$(TAG) \
 		--build-arg OPENCLAW_VER=$(OPENCLAW_VER) \
+		--build-arg OPENCLAW_NODE_INSTALL_OLD_SPACE_SIZE=$(OPENCLAW_NODE_INSTALL_OLD_SPACE_SIZE) \
+		--build-arg OPENCLAW_NODE_BUILD_OLD_SPACE_SIZE=$(OPENCLAW_NODE_BUILD_OLD_SPACE_SIZE) \
 		--build-arg NODE_VER=$(NODE_VER) \
 		--load \
 		./
@@ -44,6 +52,8 @@ buildx-build:
 buildx-push:
 	docker buildx build --platform $(PLATFORM) --push -t $(REPO):$(TAG) \
 		--build-arg OPENCLAW_VER=$(OPENCLAW_VER) \
+		--build-arg OPENCLAW_NODE_INSTALL_OLD_SPACE_SIZE=$(OPENCLAW_NODE_INSTALL_OLD_SPACE_SIZE) \
+		--build-arg OPENCLAW_NODE_BUILD_OLD_SPACE_SIZE=$(OPENCLAW_NODE_BUILD_OLD_SPACE_SIZE) \
 		--build-arg NODE_VER=$(NODE_VER) \
 		./
 

@@ -7,7 +7,10 @@ ARG TARGETPLATFORM
 ARG OPENCLAW_VER
 ENV OPENCLAW_VER="${OPENCLAW_VER}"
 ENV OPENCLAW_STATE_DIR="/data"
+ARG OPENCLAW_NODE_INSTALL_OLD_SPACE_SIZE=2048
+ARG OPENCLAW_NODE_BUILD_OLD_SPACE_SIZE=4096
 
+ENV OPENCLAW_CONFIG_PATH=/home/node/.openclaw/openclaw.json
 
 ENV SHELL=/bin/bash
 
@@ -50,7 +53,7 @@ RUN if [ -n "$OPENCLAW_DOCKER_APT_PACKAGES" ]; then \
 USER node
 # Reduce OOM risk on low-memory hosts during dependency installation.
 # Docker builds on small VMs may otherwise fail with "Killed" (exit 137).
-RUN NODE_OPTIONS=--max-old-space-size=2048 pnpm install --frozen-lockfile
+RUN NODE_OPTIONS=--max-old-space-size=${OPENCLAW_NODE_INSTALL_OLD_SPACE_SIZE} pnpm install --frozen-lockfile
 
 # Optionally install Chromium and Xvfb for browser automation.
 # Build with: docker build --build-arg OPENCLAW_INSTALL_BROWSER=1 ...
@@ -70,10 +73,11 @@ RUN if [ -n "$OPENCLAW_INSTALL_BROWSER" ]; then \
     fi
 
 USER node
-RUN pnpm build
+# Recent OpenClaw releases can exceed Node's default heap during DTS generation.
+RUN NODE_OPTIONS=--max-old-space-size=${OPENCLAW_NODE_BUILD_OLD_SPACE_SIZE} pnpm build
 # Force pnpm for UI build (Bun may fail on ARM/Synology architectures)
 ENV OPENCLAW_PREFER_PNPM=1
-RUN pnpm ui:build
+RUN NODE_OPTIONS=--max-old-space-size=${OPENCLAW_NODE_BUILD_OLD_SPACE_SIZE} pnpm ui:build
 
 # Expose the CLI binary without requiring npm global writes as non-root.
 USER root
