@@ -9,7 +9,7 @@ on:
       - '*'
 
 env:
-  OPENCLAW2026: '2026.4.15'
+  OPENCLAW2026: '2026.4.21'
 
 jobs:
   setup:
