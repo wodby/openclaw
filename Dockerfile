@@ -1,4 +1,4 @@
-ARG NODE_VER
+ARG NODE_VER=22
 
 FROM node:${NODE_VER}
 
@@ -8,7 +8,7 @@ ARG OPENCLAW_VER
 ENV OPENCLAW_VER="${OPENCLAW_VER}"
 ENV OPENCLAW_STATE_DIR="/data"
 ARG OPENCLAW_NODE_INSTALL_OLD_SPACE_SIZE=2048
-ARG OPENCLAW_NODE_BUILD_OLD_SPACE_SIZE=4096
+ARG OPENCLAW_NODE_BUILD_OLD_SPACE_SIZE=8192
 
 ENV OPENCLAW_CONFIG_PATH=/home/node/.openclaw/openclaw.json
 
@@ -73,11 +73,13 @@ RUN if [ -n "$OPENCLAW_INSTALL_BROWSER" ]; then \
     fi
 
 USER node
-# Recent OpenClaw releases can exceed Node's default heap during DTS generation.
-RUN NODE_OPTIONS=--max-old-space-size=${OPENCLAW_NODE_BUILD_OLD_SPACE_SIZE} pnpm build
+# Use the upstream Docker-specific build target to avoid unnecessary DTS work.
+RUN NODE_OPTIONS=--max-old-space-size=${OPENCLAW_NODE_BUILD_OLD_SPACE_SIZE} \
+    pnpm_config_verify_deps_before_run=false \
+    pnpm build:docker
 # Force pnpm for UI build (Bun may fail on ARM/Synology architectures)
 ENV OPENCLAW_PREFER_PNPM=1
-RUN NODE_OPTIONS=--max-old-space-size=${OPENCLAW_NODE_BUILD_OLD_SPACE_SIZE} pnpm ui:build
+RUN pnpm_config_verify_deps_before_run=false pnpm ui:build
 
 # Expose the CLI binary without requiring npm global writes as non-root.
 USER root
