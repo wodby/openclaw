@@ -1,4 +1,4 @@
-ARG NODE_VER=22
+ARG NODE_VER=24
 
 FROM node:${NODE_VER}
 
@@ -96,7 +96,7 @@ RUN mkdir -p /data && chown -R node:node /data
 ENV NODE_ENV=production
 
 # Security hardening: Run as non-root user
-# The node:22-bookworm image includes a 'node' user (uid 1000)
+# The node:24-bookworm image includes a 'node' user (uid 1000)
 # This reduces the attack surface by preventing container escape via root privileges
 USER node
 
