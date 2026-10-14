@@ -10,7 +10,7 @@ on:
       - '!*-r[0-9]*'
 
 env:
-  OPENCLAW2026: '2026.10.2'
+  OPENCLAW2026: '2026.10.3'
 
 jobs:
   setup:
