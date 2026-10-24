@@ -59,7 +59,7 @@ jobs:
           make test
           echo "image=$(make --no-print-directory -s image-ref)" >> "$GITHUB_OUTPUT"
       - name: Verify Brotli security fixes
-        uses: wodby/images/.github/actions/check-brotli@4d79323d1d62295e425a222e8cb23ccf843cbbea
+        uses: wodby/images/.github/actions/check-brotli@7c58eab6b3f92d139e4dd57ec3db9839d0e79298
         with:
           image: ${{ steps.brotli-image.outputs.image }}
           check-node: 'true'
