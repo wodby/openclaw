@@ -16,6 +16,7 @@ ENV SHELL=/bin/bash
 
 # Install bash (set as default shell for node user), jq, and Bun (required for build scripts)
 RUN apt-get update && \
+    apt-get install -y --no-install-recommends --only-upgrade libbrotli1 libbrotli-dev && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends bash passwd jq && \
     chsh -s /bin/bash node && \
     apt-get clean && \
