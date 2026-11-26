@@ -17,7 +17,7 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  OPENCLAW2026: '2026.11.9'
+  OPENCLAW2026: '2026.11.10'
 
 jobs:
   setup:
